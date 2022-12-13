@@ -1,19 +1,17 @@
 <template>
   <div class="d-flex">
     <Sidebar></Sidebar>
-    <Dasboard></Dasboard>
+    <FormKK></FormKK>
   </div>
 </template>
 
 <script>
+import FormKK from "../components/FormKK.vue";
 import Sidebar from "../components/SideBar.vue";
-import Dasboard from "../components/Dasboard.vue";
-
 export default {
-  name: "HomePage",
   components: {
+    FormKK,
     Sidebar,
-    Dasboard,
   },
 };
 </script>

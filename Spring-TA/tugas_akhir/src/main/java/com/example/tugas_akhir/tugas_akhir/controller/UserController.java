@@ -11,7 +11,7 @@ import com.example.tugas_akhir.tugas_akhir.model.User;
 import com.example.tugas_akhir.tugas_akhir.service.IUserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("api/user")
 public class UserController {
 
