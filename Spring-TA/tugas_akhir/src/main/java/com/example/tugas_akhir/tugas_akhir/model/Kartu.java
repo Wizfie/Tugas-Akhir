@@ -23,7 +23,7 @@ public class Kartu {
     private String kecamatan;
     private String kode_pos;
     private String nomor_kk;
-    private String privinsi;
+    private String provinsi;
     private byte rt;
     private byte rw;
     public byte getId() {
@@ -68,11 +68,11 @@ public class Kartu {
     public void setNomor_kk(String nomor_kk) {
         this.nomor_kk = nomor_kk;
     }
-    public String getPrivinsi() {
-        return privinsi;
+    public String getProvinsi() {
+        return provinsi;
     }
-    public void setPrivinsi(String privinsi) {
-        this.privinsi = privinsi;
+    public void setProvinsi(String privinsi) {
+        this.provinsi = privinsi;
     }
     public byte getRt() {
         return rt;
