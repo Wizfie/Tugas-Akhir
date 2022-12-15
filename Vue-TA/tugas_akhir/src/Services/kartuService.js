@@ -13,6 +13,9 @@ class kartuService {
 	updateKartu(id, data) {
 		return http.put(`student/update/${id}`, data);
 	}
+	getkartuId(id) {
+		return http.get(`kartu/getkartu/${id}`);
+	}
 }
 
 export default new kartuService();

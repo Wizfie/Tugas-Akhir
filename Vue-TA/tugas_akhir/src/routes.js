@@ -1,7 +1,8 @@
-import Login from "./Pages/Login.vue"
-import Register from "./Pages/Register.vue"
+import Login from "./Pages/Login.vue";
+import Register from "./Pages/Register.vue";
 import Home from "./Pages/Home.vue";
 import TambahKK from "./Pages/TambahKK.vue";
+import Detail from "./Pages/Detail.vue";
 
 export default [
 	{
@@ -18,6 +19,11 @@ export default [
 	},
 	{
 		path: "/TambahKK",
-		component:TambahKK,
-	}
+		component: TambahKK,
+	},
+	{
+		path: "/Detail/:id",
+		name: "lala",
+		component: Detail,
+	},
 ];

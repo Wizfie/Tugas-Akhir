@@ -10,5 +10,6 @@ public interface IKartuRepository {
     public List<Kartu> getAllKartu();
     public Kartu updateKartu(int id ,Kartu kartu);
     public Kartu deleteKartu(int id);
+    public Kartu getKartuId(int id);
 
 }

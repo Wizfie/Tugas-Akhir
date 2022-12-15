@@ -47,9 +47,11 @@
 						<td>{{ item.kabupaten_kota }}</td>
 						<td>{{ item.kode_pos }}</td>
 						<td>
-							<button class="btn btn-info w-auto m-1">
-								<img src="../assets/file.png" style="width: 20px" alt="" />
-							</button>
+							<router-link :to="{ name: `lala`, params: { id: item.id } }">
+								<button class="btn btn-info w-auto m-1">
+									<img src="../assets/file.png" style="width: 20px" alt="" />
+								</button>
+							</router-link>
 							<button
 								type="button"
 								@click="deleteKK(item.id, index)"

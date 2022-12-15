@@ -7,7 +7,7 @@
 				<router-link to="/Home">
 					<a href="">Home</a>
 				</router-link>
-				<router-link to="TambahKK">
+				<router-link to="/TambahKK">
 					<a href="">Tambah KK</a>
 				</router-link>
 				<br />

@@ -44,6 +44,10 @@ public class KartuController {
     public Kartu updateKartu(@PathVariable int id , @RequestBody Kartu kartu){
         return kartuService.updateKartu(id, kartu);
     }
+    @GetMapping("getkartu/{id}")
+    public Kartu getKartuId(@PathVariable int id){
+        return kartuService.getKartuId(id);
+    }
 
     
 }

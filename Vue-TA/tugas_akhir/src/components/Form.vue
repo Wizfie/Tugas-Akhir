@@ -1,0 +1,256 @@
+<template>
+	<div id="DetCom">
+		<div id="title">
+			<h1>{{ title }}</h1>
+		</div>
+		<div id="button">
+			<router-link to="/home">
+				<button class="btn btn-primary mr-2">Back</button>
+			</router-link>
+			<button
+				@click="buttonChange"
+				class="btn btn-success mr-2"
+				v-show="tombolUp"
+			>
+				Update
+			</button>
+			<button v-show="tombolList" class="btn btn-info">
+				Lihat Anggota Keluarga
+			</button>
+
+			<div>
+				<form
+					@submit.prevent="inputKartu"
+					id="form"
+					class="d-flex border border-secondary mt-5 p-4 mb-5"
+				>
+					<div></div>
+					<div id="kiri">
+						<div class="form-group col">
+							<label for="formGroupExampleInput">Nomor kartu Keluarga</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.nomor_kk"
+								type="text"
+								class="form-control col"
+								id="formGroupExampleInput"
+								placeholder="Nomor kartu Keluarga"
+							/>
+						</div>
+						<div class="form-group col">
+							<label for="formGroupExampleInput">Alamat</label>
+							<textarea
+								:disabled="Read"
+								v-model="kartuData.alamat"
+								class="form-control"
+								name=""
+								placeholder="Alamat"
+								cols="30"
+								rows="5"
+							></textarea>
+						</div>
+						<div class="form-group col">
+							<label for="formGroupExampleInput">RT</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.rt"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="RT"
+							/>
+						</div>
+						<div class="form-group col">
+							<label for="formGroupExampleInput">RW</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.rw"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="RW"
+							/>
+						</div>
+						<button v-show="Submit" class="btn btn-primary m-3" type="submit">
+							{{ buttonValue }}
+						</button>
+						<button
+							v-on:click="cancel"
+							v-show="cancel"
+							class="btn btn-primary m-3"
+							type="submit"
+						>
+							Cancel
+						</button>
+					</div>
+					<div id="kanan">
+						<div class="form-group col">
+							<label for="formGroupExampleInput">Desa / Kelurahan</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.desa_kelurahan"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="Desa / kelurahan"
+							/>
+						</div>
+						<div class="form-group col">
+							<label for="formGroupExampleInput">Kecamatan</label>
+
+							<input
+								:disabled="Read"
+								v-model="kartuData.kecamatan"
+								type="text"
+								class="form-control"
+								placeholder="Kecamatan"
+							/>
+						</div>
+						<div class="form-group col mt-4">
+							<label for="formGroupExampleInput">Kabupaten / Kota</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.kabupaten_kota"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="Kabupaen / Kota"
+							/>
+						</div>
+						<div class="form-group col-12">
+							<label for="formGroupExampleInput">Provinsi</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.provinsi"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="Provinsi"
+							/>
+						</div>
+						<div class="form-group col">
+							<label for="formGroupExampleInput">Kode Pos</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.kode_pos"
+								type="text"
+								class="form-control"
+								id="formGroupExampleInput"
+								placeholder="Kode Post"
+							/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import kartuService from "@/Services/kartuService";
+	import Swal from "sweetalert2";
+
+	export default {
+		name: "DeCom",
+
+		data() {
+			return {
+				kartuData: {
+					alamat: null,
+					desa_kelurahan: null,
+					kabupaten_kota: null,
+					kecamatan: null,
+					kode_pos: null,
+					nomor_kk: null,
+					provinsi: null,
+					rt: null,
+					rw: null,
+				},
+				Read: false,
+				title: "Tambah Data KK ",
+				buttonValue: "Submit",
+				Submit: true,
+				cancel: false,
+			};
+		},
+
+		methods: {
+			// Input Data
+			inputKartu() {
+				let data = this.kartuData;
+				if (this.buttonValue == "Submit") {
+					kartuService
+						.create(data)
+						.then((response) => {
+							console.log(response.data);
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Your work has been saved",
+								showConfirmButton: true,
+								timer: 1500,
+							}).then(() => {
+								this.$router.push("/home");
+							});
+						})
+						.catch((e) => {
+							console.log(e);
+						});
+				}
+			},
+			// Update Data
+
+			// Tampil Data By id
+			getDataKartu(id) {
+				kartuService.getkartuId(id).then((response) => {
+					this.kartuData = response.data;
+					console.log(this.kartuData);
+				});
+			},
+			buttonChange() {
+				this.Read = false;
+				this.tombolUp = false;
+				this.Submit = true;
+				this.cancel = true;
+			},
+			cancel() {
+				location.reload();
+			},
+		},
+
+		props: ["Detail"],
+		mounted() {
+			if (this.$route.name == `lala`) {
+				this.getDataKartu(this.$route.params.id);
+				this.title = "Detail Kartu Keluarga";
+				this.buttonValue = "Update";
+				this.Read = true;
+				this.tombolUp = true;
+				this.tombolList = true;
+				this.Submit = false;
+				this.cancel = false;
+			} else if (this.title == "Tambah Data keluarga") {
+				this.Read = false;
+			}
+		},
+	};
+</script>
+
+<style scoped>
+	#DetCom {
+		margin-left: 250px;
+		margin-top: 50px;
+	}
+	#title {
+		margin-left: 50px;
+		margin-bottom: 25px;
+	}
+	#button {
+		margin-left: 50px;
+	}
+	#form {
+		background-color: rgb(180, 180, 180);
+		width: fit-content;
+		border-radius: 20px;
+	}
+</style>

@@ -38,5 +38,11 @@ public class KartuService  implements IKartuService{
         return kartuRepository.deleteKartu(id);
     }
 
+    @Override
+    public Kartu getKartuId(int id) {
+        // TODO Auto-generated method stub
+        return kartuRepository.getKartuId(id);
+    }
+
 
 }
