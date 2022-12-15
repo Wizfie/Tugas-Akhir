@@ -30,26 +30,27 @@ public class KartuRepository implements IKartuRepository {
     public List<Kartu> getAllKartu() {
         // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_kartu_keluarga";
-        return jdbcTemplate.query(query,new BeanPropertyRowMapper<>(Kartu.class));
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Kartu.class));
     }
-    
+
     @Override
     public Kartu updateKartu(int id, Kartu kartu) {
         // TODO Auto-generated method stub
-        String query = 
-        "UPDATE tb_kartu_keluarga SET alamat = ?,desa_kelurahan =? , kabupaten_kota =?, kecamatan=?,kode_pos=?,nomor_kk=?,provinsi=?,rt=?,rw=?";
+        String query = "UPDATE tb_kartu_keluarga SET alamat = ?,desa_kelurahan =? , kabupaten_kota =?, kecamatan=?,kode_pos=?,nomor_kk=?,provinsi=?,rt=?,rw=? WHERE id=?";
 
-        jdbcTemplate.update(query, new Object[] {kartu.getAlamat(),kartu.getDesa_kelurahan(),kartu.getKabupaten_kota(),kartu.getKecamatan(),kartu.getKode_pos(),kartu.getNomor_kk(),kartu.getProvinsi(),kartu.getRt(),kartu.getRw()});
+        jdbcTemplate.update(query,
+                new Object[] { kartu.getAlamat(), kartu.getDesa_kelurahan(), kartu.getKabupaten_kota(),
+                        kartu.getKecamatan(), kartu.getKode_pos(), kartu.getNomor_kk(), kartu.getProvinsi(),
+                        kartu.getRt(), kartu.getRw(), id });
 
-        
         return kartu;
     }
-    
+
     @Override
     public Kartu deleteKartu(int id) {
         // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_kartu_keluarga WHERE id=?";
-        var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Kartu.class),id);
+        var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Kartu.class), id);
 
         query = "DELETE FROM tb_kartu_keluarga WHERE id= ?";
         jdbcTemplate.update(query, id);
@@ -62,6 +63,6 @@ public class KartuRepository implements IKartuRepository {
         // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_kartu_keluarga WHERE id = ?";
 
-        return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Kartu.class),id);
+        return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Kartu.class), id);
     }
 }
