@@ -3,6 +3,7 @@ import Register from "./Pages/Register.vue";
 import Home from "./Pages/Home.vue";
 import TambahKK from "./Pages/TambahKK.vue";
 import Detail from "./Pages/Detail.vue";
+import List from "./Pages/ListAnggota.vue";
 
 export default [
 	{
@@ -26,5 +27,8 @@ export default [
 		name: "lala",
 		component: Detail,
 	},
-	
+	{
+		path: "/ListAnggota",
+		component: List,
+	},
 ];

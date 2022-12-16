@@ -11,7 +11,7 @@ class kartuService {
 		return http.delete(`kartu/delete/${id}`);
 	}
 	updateKartu(id, data) {
-		return http.put(`student/update/${id}`, data);
+		return http.put(`kartu/update/${id}`, data);
 	}
 	getkartuId(id) {
 		return http.get(`kartu/getkartu/${id}`);
