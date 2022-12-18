@@ -46,7 +46,7 @@ public class KartuRepository implements IKartuRepository {
         return kartu;
     }
 
-    @Override
+    @Override 
     public Kartu deleteKartu(int id) {
         // TODO Auto-generated method stub
         String query = "SELECT * FROM tb_kartu_keluarga WHERE id=?";

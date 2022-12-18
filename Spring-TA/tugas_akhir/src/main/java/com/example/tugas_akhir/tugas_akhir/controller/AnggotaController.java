@@ -1,6 +1,5 @@
 package com.example.tugas_akhir.tugas_akhir.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,40 +13,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.tugas_akhir.tugas_akhir.model.Kartu;
-import com.example.tugas_akhir.tugas_akhir.service.IKartuService;
+import com.example.tugas_akhir.tugas_akhir.model.Anggota;
+import com.example.tugas_akhir.tugas_akhir.service.IAnggotaService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
-@RequestMapping("api/kartu")
+@RequestMapping("api/anggota")
+public class AnggotaController {
 
-public class KartuController {
-
-    
-
-    @Autowired IKartuService kartuService;
+    @Autowired
+    IAnggotaService anggotaService;
 
     @PostMapping("/insert")
-    public Kartu insertKartu(@RequestBody Kartu kartu ){
-        return kartuService.insertKartu(kartu);
+    public Anggota insertAnggota(@RequestBody Anggota anggota) {
+        return anggotaService.insertAnggota(anggota);
     }
+
     @GetMapping("/getAll")
-    public List<Kartu> getAllkartu(){
-        return kartuService.getAllKartu();
+    public List<Anggota> getAllAnggota() {
+        return anggotaService.getAllAnggota();
+
     }
-    @DeleteMapping("/delete/{id}")
-    public Kartu deleteKartu(@PathVariable int  id){
-        return kartuService.deleteKartu(id);
+
+    @DeleteMapping("delete/{id}")
+    public Anggota deleteAnggota(@PathVariable int id ) {
+        return anggotaService.deleteAnggota(id);
     }
 
     @PutMapping("/update/{id}")
-    public Kartu updateKartu(@PathVariable int id , @RequestBody Kartu kartu){
-        return kartuService.updateKartu(id, kartu);
-    }
-    @GetMapping("/getkartu/{id}")
-    public Kartu getKartuId(@PathVariable int id){
-        return kartuService.getKartuId(id);
+    public Anggota updateAnggota(@PathVariable int id, @RequestBody Anggota anggota) {
+        return anggotaService.getAnggotaId(id);
     }
 
-    
+    @GetMapping("/getanggota/{id}")
+    public Anggota getAnggotaId(@PathVariable int id) {
+        return anggotaService.getAnggotaId(id);
+    }
+
 }

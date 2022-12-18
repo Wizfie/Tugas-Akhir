@@ -2,7 +2,6 @@
   <div class="d-flex">
     <Sidebar></Sidebar>
     <Formdetail></Formdetail>
-    <!-- :Detail="kartuData" -->
   </div>
 </template>
 
