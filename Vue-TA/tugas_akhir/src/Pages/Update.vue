@@ -1,19 +1,20 @@
 <template>
-	<div class="d-flex">
+	<div>
 		<Sidebar></Sidebar>
-		<Formdetail></Formdetail>
+		<div class="d-flex">
+			<Formlist></Formlist>
+		</div>
 	</div>
 </template>
 
 <script>
 	import Sidebar from "@/components/SideBar.vue";
-	import Formdetail from "@/components/FormDetail.vue";
+	import Formlist from "@/components/FormList.vue";
 	export default {
-		name: "DetailPage",
-
+		name: "UpD",
 		components: {
 			Sidebar,
-			Formdetail,
+			Formlist,
 		},
 	};
 </script>

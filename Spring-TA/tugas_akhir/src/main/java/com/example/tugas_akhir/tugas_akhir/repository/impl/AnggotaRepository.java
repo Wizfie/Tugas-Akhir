@@ -35,14 +35,13 @@ public class AnggotaRepository implements IAnggotaRepository {
 
     @Override
     public Anggota updateAnggota(int id, Anggota anggota) {
-        String query = "UPDATE tb_anggota_keluarga SET agama=?,id_kk=?,jenis_kelamin=?,kepala_keluarga=?,nama=?,nik=?,pendidikan=?,tanggal_lahir=?,tempat_lahir=?";
+        String query = "UPDATE tb_anggota_keluarga SET agama=?,id_kk=?,jenis_kelamin=?,kepala_keluarga=?,nama=?,nik=?,pendidikan=?,tanggal_lahir=?,tempat_lahir=? WHERE id= ?";
         jdbcTemplate.update(query,
                 new Object[] {
                         anggota.getAgama(), anggota.getId_kk(), anggota.getJenis_kelamin(),
                         anggota.getKepala_keluarga(),
                         anggota.getNama(), anggota.getNik(), anggota.getPendidikan(), anggota.getTanggal_lahir(),
-                        anggota.getTempat_lahir()
-                });
+                        anggota.getTempat_lahir(),id});
         return anggota;
     }
 

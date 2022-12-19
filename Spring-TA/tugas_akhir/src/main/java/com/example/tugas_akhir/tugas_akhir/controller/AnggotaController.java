@@ -42,7 +42,7 @@ public class AnggotaController {
 
     @PutMapping("/update/{id}")
     public Anggota updateAnggota(@PathVariable int id, @RequestBody Anggota anggota) {
-        return anggotaService.getAnggotaId(id);
+        return anggotaService.updateAnggota(id, anggota);
     }
 
     @GetMapping("/getanggota/{id}")
