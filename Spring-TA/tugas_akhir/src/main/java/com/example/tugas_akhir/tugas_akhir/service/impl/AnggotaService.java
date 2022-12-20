@@ -45,4 +45,16 @@ public class AnggotaService implements IAnggotaService {
         return AnggotaRepository.getAnggotaId(id);
     }
 
+    @Override
+    public List<Anggota> getwarga(String id_kk) {
+        // TODO Auto-generated method stub
+        return AnggotaRepository.getwarga(id_kk);
+    }
+
+    @Override
+    public List<Anggota> deleteAll(int id_kk) {
+        // TODO Auto-generated method stub
+        return AnggotaRepository.deleteAll(id_kk);
+    }
+
 }

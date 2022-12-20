@@ -1,6 +1,7 @@
 package com.example.tugas_akhir.tugas_akhir.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,15 @@ public class UserRepository implements IUserRepository{
         return user;
     }
 
+    @Override
+    public User login(User user) {
+        String query = "SELECT * FROM tb_user WHERE email = ? AND password = ?";
+        var result = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(User.class),new Object[]{
+            user.getEmail(),user.getPassword()
+        });
+        return result;
+
   
 
+}
 }

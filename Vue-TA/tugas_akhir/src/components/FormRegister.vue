@@ -7,13 +7,15 @@
 						<div class="card-body p-md-5">
 							<div class="row justify-content-center">
 								<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-									<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+									<p
+										id="Title"
+										class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"
+									>
 										Sign Up
 									</p>
 
 									<form @submit.prevent="inputUser" class="mx-1 mx-md-4">
 										<div class="d-flex flex-row align-items-center mb-4">
-											<i class="fas fa-user fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<input
 													v-model="userData.nama"
@@ -83,14 +85,13 @@
 											</button>
 										</div>
 
-										<p>
+										<p class="text-center">
 											Sudah Punya Akun?
 											<br />
 										</p>
-
-										<router-link to="/" class="btn btn-outline-light">
-											Login Disini</router-link
-										>
+										<p class="text-center">
+											<router-link to="/"> Login Disini </router-link>
+										</p>
 									</form>
 								</div>
 								<div
@@ -153,4 +154,14 @@
 	};
 </script>
 
-<style></style>
+<style>
+	label {
+		color: black;
+	}
+	#title {
+		color: black;
+	}
+	p {
+		color: black;
+	}
+</style>

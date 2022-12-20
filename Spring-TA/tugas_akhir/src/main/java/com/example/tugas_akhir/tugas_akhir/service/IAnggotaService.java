@@ -14,4 +14,8 @@ public interface IAnggotaService {
     public Anggota deleteAnggota(int id);
 
     public Anggota getAnggotaId(int id);
+
+    public List<Anggota> getwarga(String id_kk);
+
+    public List<Anggota> deleteAll(int id_kk);
 }

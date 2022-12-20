@@ -18,7 +18,7 @@ import com.example.tugas_akhir.tugas_akhir.model.Kartu;
 import com.example.tugas_akhir.tugas_akhir.service.IKartuService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("api/kartu")
 
 public class KartuController {

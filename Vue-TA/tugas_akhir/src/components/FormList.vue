@@ -65,7 +65,7 @@
 							v-model="anggotaData2.nik"
 							type="text"
 							class="form-control"
-							placeholder="First name"
+							placeholder="NIK"
 						/>
 					</div>
 					<div class="col-6">
@@ -75,7 +75,6 @@
 							v-model="anggotaData2.tanggal_lahir"
 							type="date"
 							class="form-control mb-3"
-							placeholder="Last name"
 						/>
 					</div>
 				</div>
@@ -87,7 +86,7 @@
 							v-model="anggotaData2.nama"
 							type="text"
 							class="form-control"
-							placeholder="First name"
+							placeholder="Nama"
 						/>
 					</div>
 					<div class="col-6">
@@ -97,7 +96,7 @@
 							v-model="anggotaData2.agama"
 							type="text"
 							class="form-control mb-3"
-							placeholder="Last name"
+							placeholder="Agama"
 						/>
 					</div>
 				</div>
@@ -120,7 +119,7 @@
 							v-model="anggotaData2.pendidikan"
 							type="text"
 							class="form-control mb-3"
-							placeholder="Last name"
+							placeholder="Pendidikan"
 						/>
 					</div>
 				</div>
@@ -132,7 +131,7 @@
 							v-model="anggotaData2.tempat_lahir"
 							type="text"
 							class="form-control"
-							placeholder="First name"
+							placeholder="Tempat Lahir"
 						/>
 					</div>
 					<div class="col-6">
@@ -147,7 +146,12 @@
 						</select>
 					</div>
 				</div>
-				<button v-show="SButton" type="submit" class="btn btn-success mt-4">
+				<button
+					@click="BWarga"
+					v-show="SButton"
+					type="submit"
+					class="btn btn-success mt-4"
+				>
 					{{ Button }}
 				</button>
 
@@ -224,6 +228,7 @@
 			tambahAnggota() {
 				let data = this.anggotaData2;
 				if (this.Button == "Submit") {
+					this.anggotaData2.id_kk = this.$route.params.id;
 					anggotaService
 						.create(data)
 						.then((response) => {
@@ -231,7 +236,7 @@
 							Swal.fire({
 								position: "center",
 								icon: "success",
-								title: "Your work has been saved",
+								title: "Data Telah Tersimpan",
 								showConfirmButton: true,
 								timer: 1500,
 							});
@@ -245,13 +250,12 @@
 				} else {
 					// update anggota
 					anggotaService.updateAnggota(data.id, data).then((response) => {
-						console.log("Masuk");
 						console.log(response.data);
 					});
 					Swal.fire({
 						position: "center",
 						icon: "success",
-						title: "Your work has been saved",
+						title: "Data Telah Tersimpan",
 						// timer: 2000,
 						showConfirmButton: true,
 						timerProgressBar: true,
@@ -272,12 +276,12 @@
 				});
 				swalWithBootstrapButtons
 					.fire({
-						title: "Are you sure?",
-						text: "You won't be able to revert this!",
+						title: "Apakah Kamu Yakin?",
+						text: "Data kamu akan terhapus permanen!",
 						icon: "warning",
 						showCancelButton: true,
-						confirmButtonText: "Yes, delete it!",
-						cancelButtonText: "No, cancel!",
+						confirmButtonText: "Ya, Hapus!",
+						cancelButtonText: "Tidak, Batalkan!",
 						reverseButtons: true,
 					})
 					.then((result) => {
@@ -288,18 +292,21 @@
 									console.log(response.data);
 									this.anggotaData.splice(index, 1);
 								})
+								.then(() => {
+									this.$router.push("/home");
+								})
 								.catch((e) => {
 									console.log(e);
 								});
 							swalWithBootstrapButtons.fire(
-								"Deleted!",
-								"Your file has been deleted.",
+								"Terhapus!",
+								"Data Kamu Telah Terhapus!.",
 								"success"
 							);
 						} else if (result.dismiss === Swal.DismissReason.cancel) {
 							swalWithBootstrapButtons.fire(
-								"Cancelled",
-								"Your imaginary file is safe :)",
+								"Dibatalkan",
+								"Data Kamu Aman:)",
 								"error"
 							);
 						}
@@ -326,14 +333,27 @@
 				this.SButton = true;
 				this.CButton = true;
 			},
+
+			getwarga(id_kk) {
+				anggotaService.getwarga(id_kk).then((response) => {
+					this.anggotaData = response.data;
+					console.log(this.anggotaData);
+				});
+			},
+
+			BWarga() {},
 		},
 
 		mounted() {
 			// get All
-			this.getAnggota();
+			// this.getAnggota();
 			// get By id
-			if (this.$route.name == "gege") {
+
+			if (this.$route.name == "hehe") {
+				this.getwarga(this.$route.params.id);
+			} else if (this.$route.name == "gege") {
 				this.getDataAnggota(this.$route.params.id);
+
 				this.fom = true;
 				this.ListData = false;
 				this.c = false;

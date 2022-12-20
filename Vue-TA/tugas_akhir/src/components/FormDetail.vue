@@ -15,8 +15,8 @@
 			>
 				Update
 			</button>
-			<router-link to="/ListAnggota">
-				<button v-="tombolList" type="button" class="btn btn-info">
+			<router-link :to="{ name: 'hehe' }">
+				<button v-show="tombolList" type="button" class="btn btn-info">
 					Lihat Anggota Keluarga
 				</button>
 			</router-link>
@@ -24,82 +24,33 @@
 			<div>
 				<form
 					@submit.prevent="inputKartu"
-					id="form"
-					class="d-flex border border-secondary mt-5 p-4 mb-5"
+					class="border border-secondary p-4 mb-5 mt-4"
 				>
-					<div id="kiri">
-						<div class="form-group col">
-							<label for="formGroupExampleInput">Nomor kartu Keluarga</label>
+					<div class="row">
+						<div class="col-6">
+							<label for="">Nomor Kartu Keluarga</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.nomor_kk"
 								type="text"
-								class="form-control col"
-								id="formGroupExampleInput"
-								placeholder="Nomor kartu Keluarga"
+								class="form-control"
+								placeholder="Nomor Kartu Keluarga"
 							/>
 						</div>
-						<div class="form-group col">
-							<label for="formGroupExampleInput">Alamat</label>
-							<textarea
-								:disabled="Read"
-								v-model="kartuData.alamat"
-								class="form-control"
-								name=""
-								placeholder="Alamat"
-								cols="30"
-								rows="5"
-							></textarea>
-						</div>
-						<div class="form-group col">
-							<label for="formGroupExampleInput">RT</label>
-							<input
-								:disabled="Read"
-								v-model="kartuData.rt"
-								type="text"
-								class="form-control"
-								id="formGroupExampleInput"
-								placeholder="RT"
-							/>
-						</div>
-						<div class="form-group col">
-							<label for="formGroupExampleInput">RW</label>
-							<input
-								:disabled="Read"
-								v-model="kartuData.rw"
-								type="text"
-								class="form-control"
-								id="formGroupExampleInput"
-								placeholder="RW"
-							/>
-						</div>
-						<button v-show="Submit" class="btn btn-primary m-3" type="submit">
-							{{ buttonValue }}
-						</button>
-						<button
-							@click="cancelBtn"
-							v-show="cancelShow"
-							class="btn btn-danger m-3"
-							type="button"
-						>
-							Cancel
-						</button>
-					</div>
-					<div id="kanan">
-						<div class="form-group col">
-							<label for="formGroupExampleInput">Desa / Kelurahan</label>
+						<div class="col-6">
+							<label for="">Desa / Kelurahan</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.desa_kelurahan"
 								type="text"
-								class="form-control"
-								id="formGroupExampleInput"
-								placeholder="Desa / kelurahan"
+								class="form-control mb-3"
+								placeholder="Desa / Kelurahan"
 							/>
 						</div>
-						<div class="form-group col">
-							<label for="formGroupExampleInput">Kecamatan</label>
-
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<label for="">Kecamatan</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.kecamatan"
@@ -108,38 +59,89 @@
 								placeholder="Kecamatan"
 							/>
 						</div>
-						<div class="form-group col mt-4">
-							<label for="formGroupExampleInput">Kabupaten / Kota</label>
+						<div class="col-6">
+							<label for="">Kabupaten / Kota</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.kabupaten_kota"
 								type="text"
-								class="form-control"
-								id="formGroupExampleInput"
-								placeholder="Kabupaen / Kota"
+								class="form-control mb-3"
+								placeholder="kabupaten / Kota"
 							/>
 						</div>
-						<div class="form-group col-12">
-							<label for="formGroupExampleInput">Provinsi</label>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<label for="">Provinsi</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.provinsi"
 								type="text"
 								class="form-control"
-								id="formGroupExampleInput"
 								placeholder="Provinsi"
 							/>
 						</div>
-						<div class="form-group col">
-							<label for="formGroupExampleInput">Kode Pos</label>
+						<div class="col-6">
+							<label for="">Kode Pos</label>
 							<input
 								:disabled="Read"
 								v-model="kartuData.kode_pos"
 								type="text"
-								class="form-control"
-								id="formGroupExampleInput"
-								placeholder="Kode Post"
+								class="form-control mb-3"
+								placeholder="Kode Pos"
 							/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col">
+							<div>
+								<label for="">Alamat</label>
+							</div>
+							<textarea
+								:disabled="Read"
+								v-model="kartuData.alamat"
+								name=""
+								id=""
+								cols="55	"
+								rows="6"
+							></textarea>
+						</div>
+						<div class="col-3">
+							<label for="">RT</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.rt"
+								type="text"
+								class="form-control mb-3"
+								placeholder="RT"
+							/>
+						</div>
+						<div class="col-3">
+							<label for="">RW</label>
+							<input
+								:disabled="Read"
+								v-model="kartuData.rw"
+								type="text"
+								class="form-control mb-3"
+								placeholder="RW"
+							/>
+							<div class="d-flex justify-content-end">
+								<button
+									v-show="Submit"
+									type="submit"
+									class="btn btn-primary mt-5"
+								>
+									{{ buttonValue }}
+								</button>
+								<button
+									@click="cancelBtn"
+									v-show="cancelShow"
+									type="button"
+									class="btn btn-danger mt-5 ml-2"
+								>
+									Cancel
+								</button>
+							</div>
 						</div>
 					</div>
 				</form>
@@ -171,6 +173,7 @@
 				title: "Tambah Data Kartu keluarga ",
 				buttonValue: "Submit",
 				Submit: true,
+				lalala: true,
 			};
 		},
 
@@ -186,7 +189,7 @@
 							Swal.fire({
 								position: "center",
 								icon: "success",
-								title: "Your work has been saved",
+								title: "Data Telah Tersimpan",
 								showConfirmButton: true,
 								timer: 1500,
 							}).then(() => {
@@ -204,7 +207,7 @@
 					Swal.fire({
 						position: "center",
 						icon: "success",
-						title: "Your work has been saved",
+						title: "Data Telah Tersimpan",
 						// timer: 2000,
 						showConfirmButton: true,
 						timerProgressBar: true,
@@ -246,9 +249,6 @@
 				this.tombolList = true;
 				this.Submit = false;
 			}
-			//  else if (this.title == "Tambah Data keluarga") {
-			//   this.Read = false;
-			// }
 		},
 	};
 </script>
@@ -265,8 +265,7 @@
 	#button {
 		margin-left: 50px;
 	}
-	#form {
-		background-color: rgb(180, 180, 180);
+	form {
 		width: fit-content;
 		border-radius: 20px;
 	}

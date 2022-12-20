@@ -64,4 +64,24 @@ public class AnggotaRepository implements IAnggotaRepository {
         return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Anggota.class), id);
     }
 
+    @Override
+    public List<Anggota> getwarga(String id_kk) {
+        String query = "SELECT * FROM tb_anggota_keluarga WHERE id_kk=?";
+        var result = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Anggota.class),id_kk);
+        
+        return result;
+    }
+
+    @Override
+    public List<Anggota> deleteAll(int id_kk) {
+        String query = "SELECT * FROM tb_anggota_keluarga WHERE id_kk=?";
+
+        var result = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Anggota.class), id_kk);
+
+        query = "DELETE FROM tb_anggota_keluarga WHERE id_kk=?";
+        jdbcTemplate.update(query, id_kk);
+
+        return result;
+
+    }
 }

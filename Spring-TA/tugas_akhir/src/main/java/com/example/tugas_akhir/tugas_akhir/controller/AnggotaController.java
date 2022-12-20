@@ -17,7 +17,7 @@ import com.example.tugas_akhir.tugas_akhir.model.Anggota;
 import com.example.tugas_akhir.tugas_akhir.service.IAnggotaService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("api/anggota")
 public class AnggotaController {
 
@@ -50,4 +50,13 @@ public class AnggotaController {
         return anggotaService.getAnggotaId(id);
     }
 
+    @GetMapping("/getwarga/{id_kk}")
+    public List<Anggota> getwarga(@PathVariable String id_kk){
+        return anggotaService.getwarga(id_kk);
+    }
+
+     @DeleteMapping("deleteAll/{id_kk}")
+    public List<Anggota> deleteAll(@PathVariable int id_kk ) {
+        return anggotaService.deleteAll(id_kk);
+    }
 }

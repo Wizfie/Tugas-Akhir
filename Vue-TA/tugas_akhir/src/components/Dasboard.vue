@@ -19,7 +19,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Jumlah Seluruh Warga</h5>
 					<hr />
-					<h4>10</h4>
+					<h4>{{ anggotaData.length }}</h4>
 				</div>
 			</div>
 		</div>
@@ -70,6 +70,7 @@
 
 <script>
 	import kartuService from "@/Services/kartuService";
+	import anggotaService from "@/Services/anggotaService";
 	import Swal from "sweetalert2";
 	export default {
 		name: "ContentCop",
@@ -86,8 +87,19 @@
 						console.log(e);
 					});
 			},
+			getAnggota() {
+				anggotaService
+					.getAll()
+					.then((response) => {
+						this.anggotaData = response.data;
+						console.log(this.anggotaData);
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			},
 
-			deleteKK(id, index) {
+			deleteKK(id) {
 				const swalWithBootstrapButtons = Swal.mixin({
 					customClass: {
 						confirmButton: "btn btn-success ",
@@ -97,34 +109,35 @@
 				});
 				swalWithBootstrapButtons
 					.fire({
-						title: "Are you sure?",
-						text: "You won't be able to revert this!",
+						title: "Apakah Kamu Yakin?",
+						text: "Data kamu akan terhapus !",
 						icon: "warning",
 						showCancelButton: true,
-						confirmButtonText: "Yes, delete it!",
-						cancelButtonText: "No, cancel!",
+						confirmButtonText: "Ya, Hapus!",
+						cancelButtonText: "Tidak, Batalkan!",
 						reverseButtons: true,
 					})
 					.then((result) => {
 						if (result.isConfirmed) {
-							kartuService
-								.deleteKartu(id)
-								.then((response) => {
+							kartuService.deleteKartu(id).then((response) => {
+								console.log(response.data);
+								anggotaService.deleteAll(id).then((response) => {
 									console.log(response.data);
-									this.kartuData.splice(index, 1);
-								})
-								.catch((e) => {
-									console.log(e);
 								});
+								location.reload();
+							});
+							// .catch((e) => {
+							// 	console.log(e);
+							// });
 							swalWithBootstrapButtons.fire(
-								"Deleted!",
-								"Your file has been deleted.",
+								"Terhapus!",
+								"Data Kamu Telah Terhapus!.",
 								"success"
 							);
 						} else if (result.dismiss === Swal.DismissReason.cancel) {
 							swalWithBootstrapButtons.fire(
-								"Cancelled",
-								"Your imaginary file is safe :)",
+								"Dibatalkan",
+								"Data Kamu Aman :)",
 								"error"
 							);
 						}
@@ -133,10 +146,12 @@
 		},
 		mounted() {
 			this.getKartu();
+			this.getAnggota();
 		},
 		data() {
 			return {
 				kartuData: [],
+				anggotaData: [],
 			};
 		},
 	};

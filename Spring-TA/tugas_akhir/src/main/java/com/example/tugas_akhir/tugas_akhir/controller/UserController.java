@@ -11,7 +11,7 @@ import com.example.tugas_akhir.tugas_akhir.model.User;
 import com.example.tugas_akhir.tugas_akhir.service.IUserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("api/user")
 public class UserController {
 
@@ -22,4 +22,10 @@ public class UserController {
         return userService.insertUser(user);
     } 
     
+    @PostMapping("/Login")
+        public User Login(@RequestBody User user ){
+            return userService.login(user);
+        }
+    
 }
+
