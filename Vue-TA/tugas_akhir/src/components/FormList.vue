@@ -1,21 +1,28 @@
 <template>
 	<div id="List">
 		<div>
-			<h1 class="Judul">{{ Judul }}</h1>
-		</div>
-		<div class="buton">
-			<router-link to="/TambahKK">
-				<button class="btn btn-dark mr-2">Back</button>
-			</router-link>
+			<div>
+				<h1 class="Judul">{{ Judul }}</h1>
+			</div>
+			<div class="buton">
+				<router-link to="/Home">
+					<button class="btn btn-dark mr-2">Back</button>
+				</router-link>
 
-			<button @click="TambahFom" v-show="c" class="btn btn-info">
-				Tambah Anggota Keluarga
-			</button>
-			<button @click="Up" v-show="upd" class="btn btn-success ml-2">
-				Update Data
-			</button>
+				<button
+					@click="KTambah"
+					v-show="TTambah"
+					type="button"
+					class="btn btn-info"
+				>
+					Tambah Anggota Keluarga
+				</button>
+				<button @click="FUpdate" v-show="TUpdate" class="btn btn-success ml-2">
+					Update
+				</button>
+			</div>
 		</div>
-		<div id="tabel" v-show="ListData">
+		<div id="tabel" v-show="tableData">
 			<table class="table table-bordered mt-5 ml-5">
 				<thead class="thead-dark mr-5">
 					<tr>
@@ -35,11 +42,9 @@
 						<td>{{ item.jenis_kelamin }}</td>
 						<td>{{ item.kepala_keluarga }}</td>
 						<td>
-							<router-link :to="{ name: 'gege', params: { id: item.id } }">
-								<button v-show="Da" class="btn btn-info w-auto m-1">
-									<img src="../assets/file.png" style="width: 20px" alt="" />
-								</button>
-							</router-link>
+							<button class="btn btn-info w-auto m-1" @click="update(item.id)">
+								<img src="../assets/file.png" style="width: 20px" alt="" />
+							</button>
 							<button
 								type="button"
 								@click="deleteAnggota(item.id, index)"
@@ -52,7 +57,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div v-show="fom" class="fom">
+		<div v-show="!tableData" class="fom">
 			<form
 				@submit.prevent="tambahAnggota"
 				class="border border-secondary p-4 mt-3"
@@ -63,9 +68,10 @@
 						<input
 							:disabled="read"
 							v-model="anggotaData2.nik"
-							type="text"
+							type="number"
 							class="form-control"
 							placeholder="NIK"
+							onKeyPress="if(this.value.length==20) return false;"
 						/>
 					</div>
 					<div class="col-6">
@@ -87,6 +93,7 @@
 							type="text"
 							class="form-control"
 							placeholder="Nama"
+							onKeyPress="if(this.value.length==30) return false;"
 						/>
 					</div>
 					<div class="col-6">
@@ -97,6 +104,7 @@
 							type="text"
 							class="form-control mb-3"
 							placeholder="Agama"
+							onKeyPress="if(this.value.length==20) return false;"
 						/>
 					</div>
 				</div>
@@ -120,6 +128,7 @@
 							type="text"
 							class="form-control mb-3"
 							placeholder="Pendidikan"
+							onKeyPress="if(this.value.length==20) return false;"
 						/>
 					</div>
 				</div>
@@ -132,6 +141,7 @@
 							type="text"
 							class="form-control"
 							placeholder="Tempat Lahir"
+							onKeyPress="if(this.value.length==20) return false;"
 						/>
 					</div>
 					<div class="col-6">
@@ -146,24 +156,17 @@
 						</select>
 					</div>
 				</div>
-				<button
-					@click="BWarga"
-					v-show="SButton"
-					type="submit"
-					class="btn btn-success mt-4"
-				>
-					{{ Button }}
-				</button>
-
-				<router-link to="/TambahKK">
-					<button
-						v-show="CButton"
-						type="button"
-						class="btn btn-danger mt-4 ml-2"
-					>
-						Cancel
+				<div class="d-flex justify-content-center p-2">
+					<button v-show="SU" type="submit" class="btn btn-success mt-4">
+						{{ Button }}
 					</button>
-				</router-link>
+
+					<router-link to="/Home">
+						<button v-show="CC" type="button" class="btn btn-danger mt-4 ml-2">
+							Cancel
+						</button>
+					</router-link>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -177,17 +180,7 @@
 
 		data() {
 			return {
-				anggotaData: {
-					agama: null,
-					id_kk: null,
-					jenis_kelamin: null,
-					kepala_keluarga: null,
-					nama: null,
-					nik: null,
-					pendidikan: null,
-					tanggal_lahir: null,
-					tempat_lahir: null,
-				},
+				anggotaData: [],
 				anggotaData2: {
 					agama: null,
 					id_kk: null,
@@ -199,25 +192,48 @@
 					tanggal_lahir: null,
 					tempat_lahir: null,
 				},
-
-				ListData: true,
-				fom: false,
-				Judul: "Daftar Anggota Keluarga",
-				c: true,
-				Button: "Submit",
-				Da: true,
-				upd: false,
-				SButton: true,
+				Judul: "List Anggota",
+				IForm: false,
+				TTambah: true,
+				tableData: true,
+				Button: "",
+				read: false,
+				TUpdate: false,
+				SU: true,
+				CC: true,
 			};
 		},
 
 		methods: {
+			update(id) {
+				this.Judul = "Update Anggota";
+				this.TUpdate = true;
+				this.read = true;
+				this.TTambah = false;
+				this.tableData = !this.tableData;
+				this.getDataAnggota(id);
+				this.SU = false;
+				this.CC = false;
+			},
+			// Buat Ketentuan v-show
+			KTambah() {
+				this.Judul = "Tambah Data";
+				this.tableData = false;
+				this.Button = "Submit";
+			},
+			FUpdate() {
+				this.read = false;
+				this.SU = true;
+				this.CC = true;
+				this.Button = "Update";
+			},
+
 			getAnggota() {
 				anggotaService
 					.getAll()
 					.then((response) => {
-						this.anggotaData = response.data;
-						console.log(this.anggotaData);
+						this.anggotaData2 = response.data;
+						console.log(this.anggotaData2);
 					})
 					.catch((e) => {
 						console.log(e);
@@ -248,6 +264,7 @@
 							console.log(e);
 						});
 				} else {
+					// console.log("ok");
 					// update anggota
 					anggotaService.updateAnggota(data.id, data).then((response) => {
 						console.log(response.data);
@@ -259,10 +276,9 @@
 						// timer: 2000,
 						showConfirmButton: true,
 						timerProgressBar: true,
+					}).then(() => {
+						this.$router.push("/home");
 					});
-					// .then(() => {
-					//   this.$router.push("/home");
-					// });
 				}
 			},
 			//  Hapus Data Anggota
@@ -320,49 +336,18 @@
 				});
 			},
 
-			// Buat Ketentuan v-show
-			TambahFom() {
-				this.ListData = false;
-				this.fom = true;
-				this.Judul = "Tambah Anggota Keluarga";
-				this.c = false;
-			},
-			Up() {
-				this.read = false;
-				this.Button = "Update";
-				this.SButton = true;
-				this.CButton = true;
-			},
-
 			getwarga(id_kk) {
 				anggotaService.getwarga(id_kk).then((response) => {
 					this.anggotaData = response.data;
-					console.log(this.anggotaData);
+					// console.log(this.anggotaData);
 				});
 			},
-
-			BWarga() {},
 		},
 
 		mounted() {
-			// get All
-			// this.getAnggota();
-			// get By id
-
-			if (this.$route.name == "hehe") {
-				this.getwarga(this.$route.params.id);
-			} else if (this.$route.name == "gege") {
-				this.getDataAnggota(this.$route.params.id);
-
-				this.fom = true;
-				this.ListData = false;
-				this.c = false;
-				this.upd = true;
-				this.Judul = "Detail Anggota Keluarga";
-				this.read = true;
-				this.CButton = false;
-				this.SButton = false;
-			}
+			this.getwarga(this.$route.params.id);
+			console.log("mounted");
+			console.log(this.anggotaData);
 		},
 	};
 </script>
@@ -385,6 +370,7 @@
 	}
 	form {
 		width: 85%;
+		border-radius: 10px;
 	}
 	#tabel {
 		width: 92%;

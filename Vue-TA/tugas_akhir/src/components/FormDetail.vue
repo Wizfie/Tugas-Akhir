@@ -4,7 +4,7 @@
 			<h1>{{ title }}</h1>
 		</div>
 		<div id="button">
-			<router-link to="/home">
+			<router-link to="/Home">
 				<button class="btn btn-dark mr-2">Back</button>
 			</router-link>
 
@@ -15,7 +15,7 @@
 			>
 				Update
 			</button>
-			<router-link :to="{ name: 'hehe' }">
+			<router-link :to="{ name: 'satu' }">
 				<button v-show="tombolList" type="button" class="btn btn-info">
 					Lihat Anggota Keluarga
 				</button>
@@ -32,9 +32,10 @@
 							<input
 								:disabled="Read"
 								v-model="kartuData.nomor_kk"
-								type="text"
+								type="number"
 								class="form-control"
 								placeholder="Nomor Kartu Keluarga"
+								onKeyPress="if(this.value.length==20) return false;"
 							/>
 						</div>
 						<div class="col-6">
@@ -45,6 +46,7 @@
 								type="text"
 								class="form-control mb-3"
 								placeholder="Desa / Kelurahan"
+								onKeyPress="if(this.value.length==15) return false;"
 							/>
 						</div>
 					</div>
@@ -57,6 +59,7 @@
 								type="text"
 								class="form-control"
 								placeholder="Kecamatan"
+								onKeyPress="if(this.value.length==15) return false;"
 							/>
 						</div>
 						<div class="col-6">
@@ -67,6 +70,7 @@
 								type="text"
 								class="form-control mb-3"
 								placeholder="kabupaten / Kota"
+								onKeyPress="if(this.value.length==15) return false;"
 							/>
 						</div>
 					</div>
@@ -79,6 +83,7 @@
 								type="text"
 								class="form-control"
 								placeholder="Provinsi"
+								onKeyPress="if(this.value.length==15) return false;"
 							/>
 						</div>
 						<div class="col-6">
@@ -86,9 +91,10 @@
 							<input
 								:disabled="Read"
 								v-model="kartuData.kode_pos"
-								type="text"
+								type="number"
 								class="form-control mb-3"
 								placeholder="Kode Pos"
+								onKeyPress="if(this.value.length==10) return false;"
 							/>
 						</div>
 					</div>
@@ -104,6 +110,7 @@
 								id=""
 								cols="55	"
 								rows="6"
+								onKeyPress="if(this.value.length==100) return false;"
 							></textarea>
 						</div>
 						<div class="col-3">
@@ -111,17 +118,19 @@
 							<input
 								:disabled="Read"
 								v-model="kartuData.rt"
-								type="text"
+								type="number"
 								class="form-control mb-3"
 								placeholder="RT"
+								onKeyPress="if(this.value.length==3) return false;"
 							/>
 						</div>
 						<div class="col-3">
 							<label for="">RW</label>
 							<input
+								onKeyPress="if(this.value.length==5) return false;"
 								:disabled="Read"
 								v-model="kartuData.rw"
-								type="text"
+								type="number"
 								class="form-control mb-3"
 								placeholder="RW"
 							/>
@@ -174,6 +183,10 @@
 				buttonValue: "Submit",
 				Submit: true,
 				lalala: true,
+				tombolUp: false,
+				tombolList: false,
+				Read: false,
+				cancelShow: false,
 			};
 		},
 

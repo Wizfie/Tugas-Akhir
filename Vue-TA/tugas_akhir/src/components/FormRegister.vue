@@ -18,7 +18,8 @@
 										<div class="d-flex flex-row align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<input
-													v-model="userData.nama"
+													required
+													v-model="dataRegis.nama"
 													type="text"
 													id="form3Example1c"
 													placeholder="Nama Lengkap"
@@ -34,7 +35,8 @@
 											<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<input
-													v-model="userData.email"
+													required
+													v-model="dataRegis.email"
 													type="email"
 													id="form3Example3c"
 													placeholder="Email"
@@ -50,7 +52,8 @@
 											<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<input
-													v-model="userData.password"
+													required
+													v-model="dataRegis.password"
 													type="password"
 													id="form3Example4c"
 													placeholder="Password"
@@ -66,6 +69,8 @@
 											<i class="fas fa-key fa-lg me-3 fa-fw"></i>
 											<div class="form-outline flex-fill mb-0">
 												<input
+													v-model="dataRegis.password2"
+													required
 													type="password"
 													id="form3Example4cd"
 													placeholder="Password"
@@ -120,35 +125,44 @@
 
 		data() {
 			return {
-				userData: {
+				dataRegis: {
 					email: null,
 					nama: null,
 					password: null,
+					password2: null,
 				},
-				buttonValue: "submit",
+				// buttonValue: "submit",
 			};
 		},
 
 		methods: {
 			inputUser() {
-				let data = this.userData;
-				userService
-					.create(data)
-					.then((response) => {
-						console.log(response.data);
-						Swal.fire({
-							position: "center",
-							icon: "success",
-							title: "Your work has been saved",
-							showConfirmButton: true,
-							timer: 2000,
-						}).then(() => {
-							this.$router.push("/");
+				let data = this.dataRegis;
+
+				if (this.dataRegis.password != this.dataRegis.password2) {
+					alert("Password Beda");
+				} else {
+					userService
+						.create(data)
+						.then((response) => {
+							console.log(response.data);
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Your work has been saved",
+								showConfirmButton: true,
+								timer: 2000,
+							}).then(() => {
+								this.$router.push("/");
+							});
+						})
+						.catch((e) => {
+							console.log(e);
+							if (e.response.data.status === 500) {
+								alert("Email telah Dipakai");
+							}
 						});
-					})
-					.catch((e) => {
-						console.log(e);
-					});
+				}
 			},
 		},
 	};

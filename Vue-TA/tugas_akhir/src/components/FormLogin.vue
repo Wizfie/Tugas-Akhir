@@ -22,7 +22,7 @@
 						<div
 							class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
 						>
-							<form style="width: 30rem">
+							<form @submit.prevent="login" style="width: 30rem">
 								<h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
 									Log in
 								</h3>
@@ -55,10 +55,10 @@
 
 								<div class="pt-1 mb-4">
 									<!-- <router-link to="/home"> -->
-										<button class="btn btn-info btn-lg btn-block" type="submit">
-											Login
-										</button>
-									</router-link>
+									<button class="btn btn-info btn-lg btn-block" type="submit">
+										Login
+									</button>
+									<!-- </router-link> -->
 								</div>
 
 								<p>
@@ -91,13 +91,13 @@
 		},
 		methods: {
 			login() {
-				let data = datalogin;
-
+				let data = this.datalogin;
 				userService
 					.login(data)
 					.then((response) => {
 						console.log(response);
-						this.$route.push("/home");
+						alert("masuk");
+						this.$router.push("/Home");
 					})
 					.catch((e) => {
 						console.log(e);

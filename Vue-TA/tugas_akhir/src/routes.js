@@ -31,13 +31,13 @@ export default [
 
 	{
 		path: "/Detail/:id/ListAnggota",
-		name: "hehe",
+		name: "satu",
 		component: List,
 	},
 
 	{
 		path: "/:id/ListAnggota/:ide",
-		name: "gege",
+		name: "dua",
 		component: Update,
 	},
 ];

@@ -6,7 +6,7 @@ class userService {
 	}
 
 	login(data) {
-		return http.post("/user/login", data);
+		return http.post("/user/Login", data);
 	}
 }
 
