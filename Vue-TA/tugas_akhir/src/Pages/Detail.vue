@@ -1,21 +1,21 @@
 <template>
-	<div class="d-flex">
-		<Sidebar></Sidebar>
-		<Formdetail></Formdetail>
-	</div>
+  <div class="d-flex">
+    <Sidebar></Sidebar>
+    <Formdetail></Formdetail>
+  </div>
 </template>
 
 <script>
-	import Sidebar from "@/components/SideBar.vue";
-	import Formdetail from "@/components/FormDetail.vue";
-	export default {
-		name: "DetailPage",
+import Sidebar from "@/components/SideBar.vue";
+import Formdetail from "@/components/FormAddKk.vue";
+export default {
+  name: "DetailPage",
 
-		components: {
-			Sidebar,
-			Formdetail,
-		},
-	};
+  components: {
+    Sidebar,
+    Formdetail,
+  },
+};
 </script>
 
 <style></style>

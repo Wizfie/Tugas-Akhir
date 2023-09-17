@@ -1,20 +1,15 @@
 <template>
-  <div>
-    <FormLogin />
-  </div>
+  <FormLogin />
 </template>
 
 <script>
-  import FormLogin from "../components/FormLogin.vue"
-  export default {
-      name:"LoginPage",
-      components:{
-          FormLogin,
-      }
-
-  }
+import FormLogin from "../components/FormLogin.vue";
+export default {
+  name: "LoginPage",
+  components: {
+    FormLogin,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

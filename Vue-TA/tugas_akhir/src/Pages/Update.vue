@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<div>
 		<Sidebar></Sidebar>
 		<div class="d-flex">
@@ -19,4 +19,4 @@
 	};
 </script>
 
-<style></style>
+<style></style> -->

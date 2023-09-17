@@ -13,8 +13,8 @@
 
         <br />
         <br />
-        <router-link to="/">
-          <a href="">Sign Out</a>
+        <router-link to="">
+          <a href="" @click="logout">Sign Out</a>
         </router-link>
       </div>
     </div>
@@ -24,6 +24,14 @@
 <script>
 export default {
   name: "SideComp",
+
+  methods: {
+    logout() {
+      sessionStorage.removeItem("email");
+      sessionStorage.removeItem("password");
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
@@ -59,6 +67,7 @@ body {
 }
 
 .sidebar a {
+  text-align: center;
   display: block;
   padding: 10px 20px;
   color: #bbb;
